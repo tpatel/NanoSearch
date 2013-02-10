@@ -13,9 +13,10 @@ angular.module("NanoSearch", ['ngResource']).
 	});
 
 function SearchController($scope, $resource, $rootScope, $window, $location) {
-	/*$scope.$on('$viewContentLoaded', function(event) {
-		$window._gaq.push(['_trackPageview', $location.path()]);
-	});*/
+	$scope.$on('$viewContentLoaded', function(event) {
+		if($scope.youtube)
+			$window._gaq.push(['_trackPageview', $location.path()]); //It used to happen twice when launching the app
+	});
     $scope.youtube = $resource("https://gdata.youtube.com/feeds/api/videos",
         {'max-results':'6', orderby:'relevance', alt:'json-in-script', v:'2', callback:'JSON_CALLBACK'},
         {get:{method:'JSONP'}}
@@ -48,9 +49,9 @@ function SearchController($scope, $resource, $rootScope, $window, $location) {
 }
 
 function VideoController($scope, $resource, $routeParams, $location, $rootScope, $window) {
-	/*$scope.$on('$viewContentLoaded', function(event) {
+	$scope.$on('$viewContentLoaded', function(event) {
 		$window._gaq.push(['_trackPageview', $location.path()]);
-	});*/
+	});
 	$scope.video = $routeParams.video;
 	$scope.details = $resource('https://gdata.youtube.com/feeds/api/videos/:videoid/related',
         {videoid:$scope.video, alt:'json-in-script', v:'2', callback:'JSON_CALLBACK'},
@@ -70,9 +71,9 @@ function VideoController($scope, $resource, $routeParams, $location, $rootScope,
 }
 
 function SimpleSearchController($scope, $location, $rootScope, $window) {
-	/*$scope.$on('$viewContentLoaded', function(event) {
+	$scope.$on('$viewContentLoaded', function(event) {
 		$window._gaq.push(['_trackPageview', $location.path()]);
-	});*/
+	});
 	$scope.search = function(){
 		$rootScope.q = $scope.q;
         $location.path('/');
