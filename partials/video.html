@@ -1,0 +1,24 @@
+<div class="upper-margin off"></div>
+<div class="outer-box center">
+	<div class="inner-box">
+		<h1><a href="/">NanoSearch</a></h1>
+		<form ng-submit="search()"><input type="text" ng-model="q" focus></input></form>
+	</div>
+	<div class="link-box">
+		<a class="answer-link" ng-click="search()">
+			<div class="inner-link-box">Get videos</div>
+		</a>
+	</div>
+</div>
+<div class="center">
+    <iframe width="853" height="480" id="ytplayer" ng-src="http://www.youtube.com/v/{{video}}?autoplay=1" frameborder="0" allowfullscreen></iframe>
+</div>
+
+<div>
+    <ul class="results center">
+        <li ng-repeat="v in videos" class="result-box">
+            <a href="#/v/{{v.media$group.yt$videoid.$t}}"><img ng-src="{{v.media$group.media$thumbnail[2].url}}" style="height:155px;"/></a>
+            <p><a href="#/v/{{v.media$group.yt$videoid.$t}}">{{v.title.$t}}</a> <br/><small>by {{v.author[0].name.$t}}</small></p>
+        </li>
+    </ul>
+</div>
